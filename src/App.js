@@ -11,17 +11,24 @@ function App() {
   const [adressList] = useState([]);
 
   async function handleSearch() {
-    console.log("Fazendo a busca");
     const requestResult = await fetchCep(cepToSearch);
     if (requestResult.error) {
       alert("Não foi possível encontrar este CEP formato incorreto");
     } else if (requestResult.cep) {
-      adressList.push(requestResult);
-      setCepToSearch("");
-      updateLastCepString();
+      if (checkCepDuplicate(requestResult)) {
+        alert(`O CEP ${requestResult.cep} já se encontra na listagem`);
+      } else {
+        adressList.push(requestResult);
+        setCepToSearch("");
+        updateLastCepString();
+      }
     } else {
       alert("Nenhuma cidade corresponde a este CEP");
     }
+  }
+
+  function checkCepDuplicate(object) {
+    return adressList.some((item) => item.cep == object.cep);
   }
 
   async function fetchCep(cep) {
@@ -29,7 +36,6 @@ function App() {
     try {
       const response = await fetch(url);
       const json = await response.json();
-      console.log(json);
       return json;
     } catch (error) {
       console.log("error", error);
@@ -44,7 +50,6 @@ function App() {
       const lastCepObject = adressList[adressList.length - 1];
       const lastCepString = `${lastCepObject.logradouro}, ${lastCepObject.bairro}, ${lastCepObject.localidade}/${lastCepObject.uf} CEP: ${lastCepObject.cep}`;
       setlastCep(lastCepString);
-      console.log("passei aqui");
     } else {
       setlastCep("");
     }
