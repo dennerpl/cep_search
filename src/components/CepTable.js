@@ -14,7 +14,7 @@ function CepTable(props) {
       </thead>
       <tbody>
         {props.adressList.map((line, index) => (
-          <tr key={index}>
+          <tr id={line.cep} key={index}>
             <td>{line.cep}</td>
             <td>{line.logradouro}</td>
             <td>{line.bairro}</td>

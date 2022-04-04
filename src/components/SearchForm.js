@@ -7,6 +7,7 @@ function SearchForm(props) {
       <label className="searchInput">
         {"CEP: "}
         <input
+          id="inputCepToSearch"
           placeholder="digite um CEP válido"
           type="text"
           value={props.cepToSearch}
@@ -15,6 +16,7 @@ function SearchForm(props) {
       </label>
 
       <Button
+        id="searchButton"
         className="searchButton"
         size="sm"
         disabled={props.cepToSearch.length === 0}
