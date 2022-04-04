@@ -1,34 +1,27 @@
 import { Table } from "react-bootstrap";
 
-function CepTable() {
+function CepTable(props) {
   return (
     <Table striped bordered hover>
       <thead>
         <tr>
-          <th>#</th>
-          <th>First Name</th>
-          <th>Last Name</th>
-          <th>Username</th>
+          <th>CEP</th>
+          <th>Logradouro</th>
+          <th>Bairro</th>
+          <th>Cidade</th>
+          <th>Estado</th>
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>1</td>
-          <td>Mark</td>
-          <td>Otto</td>
-          <td>@mdo</td>
-        </tr>
-        <tr>
-          <td>2</td>
-          <td>Jacob</td>
-          <td>Thornton</td>
-          <td>@fat</td>
-        </tr>
-        <tr>
-          <td>3</td>
-          <td colSpan={2}>Larry the Bird</td>
-          <td>@twitter</td>
-        </tr>
+        {props.adressList.map((line, index) => (
+          <tr key={index}>
+            <td>{line.cep}</td>
+            <td>{line.logradouro}</td>
+            <td>{line.bairro}</td>
+            <td>{line.localidade}</td>
+            <td>{line.uf}</td>
+          </tr>
+        ))}
       </tbody>
     </Table>
   );
